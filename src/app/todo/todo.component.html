@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>Angular HttpClient</h1>
+
+  <div class="card">
+    <div class="form-control">
+      <input [(ngModel)]="todoTitle" placeholder="Название" type="text">
+    </div>
+    <button (click)="addTodo()" class="btn">Добавить</button>
+    <button (click)="fetchTodos()" class="btn">Загрузить</button>
+  </div>
+
+  <hr>
+
+  <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
+
+  <ng-template #todosBlock>
+    <div *ngIf="!loading; else loadingBlock">
+      <div *ngIf="todos.length; else noTodos">
+        <div *ngFor="let todo of todos" class="card">
+          <p>
+            <span [class.completed]="todo.completed">{{todo.title | titlecase}}</span>
+            <span>
+        <button (click)="removeTodo(todo.id)" class="btn btn-danger">Удалить</button>
+        <button (click)="completeTodo(todo.id)" [disabled]="todo.completed" class="btn">Завершить</button>
+      </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #loadingBlock>
+      <p>Loading...</p>
+    </ng-template>
+
+    <ng-template #noTodos>
+      <p>All done, good job</p>
+    </ng-template>
+
+  </ng-template>
+
+</div>

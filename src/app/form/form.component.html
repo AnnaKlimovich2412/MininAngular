@@ -1,0 +1,73 @@
+<div class="container">
+  <form (ngSubmit)="submit()" [formGroup]="form" class="card">
+    <h1>Angular Forms</h1>
+
+    <div class="form-control">
+      <label>Email</label>
+      <input formControlName="email" placeholder="Email" type="text">
+      <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="validation">
+        <small *ngIf="emailControl.errors?.['required']">Email is required</small>
+        <small *ngIf="emailControl.errors?.['email']">Incorrect email</small>
+        <small *ngIf="emailControl.errors?.['restrictedEmail']">Restricted email</small>
+        <small *ngIf="emailControl.errors?.['uniqueEmail']">Not unique email</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>Пароль</label>
+      <input formControlName="password" placeholder="Пароль" type="password">
+      <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="validation">
+        <small *ngIf="passwordControl.errors?.['required']">Password is required</small>
+        <small *ngIf="passwordControl.errors?.['minlength']">
+          Password must be longer than {{ passwordControl.errors?.['minlength']['requiredLength'] }}
+          Now it's {{ passwordControl.errors?.['minlength']['actualLength'] }}
+        </small>
+      </div>
+    </div>
+
+    <div class="card" formGroupName="address">
+      <h2>Адрес</h2>
+
+      <div class="form-control">
+        <label>Страна</label>
+
+        <select formControlName="country">
+          <option value="ru">Россия</option>
+          <option value="ua">Украина</option>
+          <option value="by">Беларусь</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <input #city formControlName="city" placeholder="city" type="text">
+        <div *ngIf="cityControl.invalid && cityControl.touched" class="validation">
+          <small *ngIf="cityControl.errors?.['required']">City is required</small>
+        </div>
+      </div>
+
+      <button (click)="selectCapital()" class="btn" type="button">Выбрать столицу</button>
+    </div>
+
+    <div class="card" formGroupName="skills">
+      <h2>Ваши навыки</h2>
+      <button (click)="addSkill()" class="btn" type="button">Добавить умение</button>
+      <div
+        *ngFor="let control of skillControls; let idx = index"
+        class="form-control"
+      >
+        <label>Skill {{ idx + 1 }}</label>
+        <input [formControl]="control" type="text">
+
+      </div>
+    </div>
+
+    <button [disabled]="form.invalid" class="btn" type="submit">Отправить</button>
+  </form>
+</div>
+<input #vovaKofe ngModel/>
+<p></p>
+
+
+
+
+

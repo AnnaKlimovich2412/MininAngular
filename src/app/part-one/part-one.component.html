@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Angular components</h2>
+  <app-post-form
+    (onAdd)="updatePosts($event)"
+  ></app-post-form>
+  <hr/>
+  <input
+    [(ngModel)]="search"
+    placeholder="...search"
+    type="text"
+  />
+
+  <button (click)="searchField = 'title'" class="btn">Title</button>
+  <button (click)="searchField = 'text'" class="btn">Text</button>
+
+  <app-post
+
+    *ngFor="let p of posts | filter: search: searchField"
+
+  >
+    <div #info>
+      <small *ngIf="p.text.length > 10; else short">Post is long</small>
+      <ng-template #short>
+        <small>Post is short</small>
+      </ng-template>
+    </div>
+  </app-post>
+  <button (click)="isVisible = !isVisible" class="btn">Toggle visibility</button>
+  <div *appIfNot="!isVisible" class="wrap">
+    <p [dStyles]="{fontStyle: 'italic', fontWeight: 'bold'}" appStyle="red">Lorem ipsum dolor sit amet, consectetur </p>
+  </div>
+</div>
+<p>{{ testStr | antiTitleCase}}</p>
+<h2>Angular services</h2>
+<p>App counter: {{ appCounterService.counter }}</p>
+<button (click)="appCounterService.decrease()" class="btn">-</button>
+<button (click)="appCounterService.increase()" class="btn">+</button>
