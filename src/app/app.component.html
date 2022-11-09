@@ -1,8 +1,16 @@
+<nav class="navbar">
+  <h1>Angular Modules</h1>
+
+  <ul>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+    <li routerLinkActive="active"><a routerLink="/about">About</a></li>
+  </ul>
+</nav>
+
 <div class="container">
-  <h1>Angular components</h1>
-  <app-post-form
-    (onAdd)="updatePosts($event)"
-  ></app-post-form>
-  <hr/>
-  <app-post [post]="p" *ngFor="let p of posts"></app-post>
+  <div class="card">
+
+    <router-outlet></router-outlet>
+
+  </div>
 </div>
